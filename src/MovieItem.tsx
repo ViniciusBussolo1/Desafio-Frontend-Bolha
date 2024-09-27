@@ -1,6 +1,12 @@
+import { MoviesProps } from "./types/movies";
+
 const assetsUrl = "https://www.themoviedb.org/t/p/w220_and_h330_face/";
 
-export default function MovieItem({ movie }) {
+interface MovieItemProps {
+  movie: MoviesProps;
+}
+
+export default function MovieItem({ movie }: MovieItemProps) {
   return (
     <div className="movie-item">
       <header className="movie-item-header">
