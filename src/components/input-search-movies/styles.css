@@ -1,9 +1,30 @@
 .input {
-  max-width: 300px;
   width: 100%;
   padding: 14px 12px 14px 14px;
   background-color: #1a1a1e;
   border: none;
   border-radius: 20px;
   color: #ffffff;
+}
+
+.open {
+  display: block;
+}
+
+.closed {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .input {
+    display: block !important;
+    max-width: 300px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .input {
+    margin-top: 12px;
+  }
 }

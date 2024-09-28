@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import MoviesList from "./MoviesList";
 import * as Switch from "@radix-ui/react-switch";
@@ -10,6 +10,8 @@ import { SelectCategories } from "./components/select-categories/select-categori
 
 import { Modal } from "./components/modal/modal";
 
+import { AlignJustify } from "lucide-react";
+
 import "./styles.css";
 
 export default function App() {
@@ -17,6 +19,19 @@ export default function App() {
   const [filterGenre, setFilterGenre] = useState("categoria");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFeatured, setFeatured] = useState(false);
+  const [isInputSearchOpen, setIsInputSearchOpen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 600);
+    };
+
+    checkScreenSize(); // Verifica no primeiro render
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
 
   return (
     <div className="App">
@@ -27,29 +42,39 @@ export default function App() {
           <InputSearchMovies
             filterMovies={filterMovies}
             setFilterMovies={setFilterMovies}
+            isInputSearchOpen={isInputSearchOpen}
+            isSmallScreen={isSmallScreen}
           />
 
-          <div className="search-categories">
-            <label
-              className="Label"
-              htmlFor="feature-mode"
-              style={{ paddingRight: 5 }}
-            >
-              Destaques
-            </label>
-            <Switch.Root
-              className="SwitchRoot"
-              id="airplane-mode"
-              checked={isFeatured}
-              onCheckedChange={() => setFeatured(!isFeatured)}
-            >
-              <Switch.Thumb className="SwitchThumb" />
-            </Switch.Root>
-
-            <SelectCategories
-              filterGenre={filterGenre}
-              setFilterGenre={setFilterGenre}
+          <div className="container__div">
+            <AlignJustify
+              className="icon-align"
+              size={28}
+              onClick={() => setIsInputSearchOpen(!isInputSearchOpen)}
             />
+
+            <div className="search-categories">
+              <label
+                className="Label"
+                htmlFor="feature-mode"
+                style={{ paddingRight: 5 }}
+              >
+                Destaques
+              </label>
+              <Switch.Root
+                className="SwitchRoot"
+                id="feature-mode"
+                checked={isFeatured}
+                onCheckedChange={() => setFeatured(!isFeatured)}
+              >
+                <Switch.Thumb className="SwitchThumb" />
+              </Switch.Root>
+
+              <SelectCategories
+                filterGenre={filterGenre}
+                setFilterGenre={setFilterGenre}
+              />
+            </div>
           </div>
         </div>
 

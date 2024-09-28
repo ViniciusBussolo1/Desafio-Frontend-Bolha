@@ -27,11 +27,24 @@ html {
   height: 100%;
 }
 
+.container__div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .search {
   width: 100%;
   margin-top: 48px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.icon-align {
+  color: #ffff;
+  cursor: pointer;
 }
 
 .search-categories {
@@ -109,5 +122,21 @@ html {
   .movies-list {
     grid-template-columns: repeat(1, 220px);
     justify-content: center;
+  }
+}
+
+@media (min-width: 600px) {
+  .container__div {
+    justify-content: flex-end;
+  }
+
+  .icon-align {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .search {
+    flex-direction: column-reverse;
   }
 }
