@@ -18,7 +18,7 @@ export function SelectCategories({
       value={filterGenre}
       onChange={(e) => setFilterGenre(e.target.value)}
     >
-      <option value="">Categoria</option>
+      <option value="categoria">Categoria</option>
       {genres.map((genre: genresProps) => (
         <option key={genre.id} value={genre.name}>
           {genre.name}
