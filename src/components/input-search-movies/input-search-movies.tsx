@@ -1,3 +1,5 @@
+import "./styles.css";
+
 interface InputSearchMoviesProps {
   filterMovies: string;
   setFilterMovies: (value: string) => void;
