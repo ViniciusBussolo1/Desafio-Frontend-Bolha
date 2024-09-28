@@ -9,12 +9,22 @@ import { genresProps } from "./types/genres";
 interface MoviesListProps {
   filterMovies: string;
   filterGenre: string;
+  isFeatured: boolean;
+  isModalOpen: boolean;
+  setIsModalOpen: (value: boolean) => void;
 }
 
 export default function MoviesList({
   filterMovies,
   filterGenre,
+  isFeatured,
+  isModalOpen,
+  setIsModalOpen,
 }: MoviesListProps) {
+  const handleModalOpen = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   const filteredGenres = genres.find((genre: genresProps) => {
     return genre.name.toLowerCase().includes(filterGenre.toLowerCase());
   });
@@ -26,12 +36,13 @@ export default function MoviesList({
     const matchesGenre = filteredGenres
       ? movie.genre_ids.indexOf(filteredGenres.id) !== -1
       : true;
+    const matchesFeatured = isFeatured ? movie.featured === true : true;
 
-    return matchesTitle && matchesGenre;
+    return matchesTitle && matchesGenre && matchesFeatured;
   });
 
   const moviesItems = filteredMovies.map((movie: MoviesProps) => (
-    <MovieItem key={movie.id} movie={movie} />
+    <MovieItem key={movie.id} movie={movie} onClick={handleModalOpen} />
   ));
 
   return (
