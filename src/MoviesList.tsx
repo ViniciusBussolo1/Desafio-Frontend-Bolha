@@ -5,6 +5,8 @@ import movies from "./data/popular.json";
 import genres from "./data/genres.json";
 
 import { genresProps } from "./types/genres";
+import { useContext } from "react";
+import { handleModalDataContext } from "./context/handleModalDataContext";
 
 interface MoviesListProps {
   filterMovies: string;
@@ -21,8 +23,11 @@ export default function MoviesList({
   isModalOpen,
   setIsModalOpen,
 }: MoviesListProps) {
-  const handleModalOpen = () => {
+  const { handleModalData } = useContext(handleModalDataContext);
+  const handleModalOpen = (id: number) => {
     setIsModalOpen(!isModalOpen);
+
+    handleModalData(id);
   };
 
   const filteredGenres = genres.find((genre: genresProps) => {
@@ -42,7 +47,11 @@ export default function MoviesList({
   });
 
   const moviesItems = filteredMovies.map((movie: MoviesProps) => (
-    <MovieItem key={movie.id} movie={movie} onClick={handleModalOpen} />
+    <MovieItem
+      key={movie.id}
+      movie={movie}
+      onClick={() => handleModalOpen(movie.id)}
+    />
   ));
 
   return (

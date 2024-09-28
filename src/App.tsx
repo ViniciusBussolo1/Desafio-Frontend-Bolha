@@ -30,6 +30,13 @@ export default function App() {
           />
 
           <div className="search-categories">
+            <label
+              className="Label"
+              htmlFor="feature-mode"
+              style={{ paddingRight: 5 }}
+            >
+              Destaques
+            </label>
             <Switch.Root
               className="SwitchRoot"
               id="airplane-mode"
